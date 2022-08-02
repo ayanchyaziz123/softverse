@@ -116,6 +116,18 @@ exports.createProduct = async (req, res, next) => {
         if(!description) return res.status(400).json({
             detail: "Did not give product description"
         })
+        if(!lifeTimePrice) return res.status(400).json({
+            detail: "Did not give product lifeTimePrice"
+        })
+        if(!offer) return res.status(400).json({
+            detail: "Did not give product offer"
+        })
+        if(offer < 0) return res.status(400).json({
+            detail: "Dont give negative value as offer"
+        })
+        if(offer < 101) return res.status(400).json({
+            detail: "Dont give offer percentage more than 100"
+        })
         if(!req.file)return res.status(400).json({
             detail: "Did not give product image"
         })

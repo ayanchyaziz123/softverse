@@ -1,70 +1,82 @@
 import { createSlice } from "@reduxjs/toolkit";
-import data from "./data";
+import { toast } from "react-toastify";
+import Cookies from 'js-cookie';
 
-const cartSlice = createSlice({
-  name: "post",
-  initialState: {
-    items: data,
-    totalAmount: 0,
-    totalCount: 0,
-  },
+const initialState = {
+  cartItems: Cookies.get('cart')
+    ? JSON.parse(Cookies.get('cart'))
+    : [],
+  cartTotalQuantity: 0,
+  cartTotalAmount: 0,
+};
 
+
+const CartSlice = createSlice({
+  name: "cart",
+  initialState,
   reducers: {
-    getCartTotal: (state, action) => {
-      let { totalAmount, totalCount } = state.items.reduce(
-        (cartTotal, cartItem) => {
-          const { price, amount } = cartItem;
-          const itemTotal = price * amount;
+    addToCart(state, action) {
+      const existingIndex = state.cartItems.findIndex(
+        (item) => item._id === action.payload._id
+      );
 
-          cartTotal.totalAmount += itemTotal;
-          cartTotal.totalCount += amount;
+      if (existingIndex >= 0) {
+        state.cartItems[existingIndex] = {
+          ...state.cartItems[existingIndex],
+        };
+
+      } else {
+        state.cartItems.push(action.payload);
+      }
+      Cookies.set('cart', JSON.stringify(state.cartItems));
+
+    },
+   
+    removeFromCart(state, action) {
+      state.cartItems.map((cartItem) => {
+        if (cartItem._id === action.payload) {
+          const nextCartItems = state.cartItems.filter(
+            (item) => item._id !== cartItem._id
+          );
+
+          state.cartItems = nextCartItems;
+          console.log("cart item ", nextCartItems);
+        }
+        //error is here
+        alert("alert");
+        Cookies.set('cart', JSON.stringify(state.cartItems));
+        return state;
+      });
+    },
+    getTotals(state, action) {
+      let { total, quantity } = state.cartItems.reduce(
+        (cartTotal, cartItem) => {
+          const { price, cartQuantity } = cartItem;
+          const itemTotal = price * cartQuantity;
+
+          cartTotal.total += itemTotal;
+          cartTotal.quantity += cartQuantity;
+
           return cartTotal;
         },
         {
-          totalAmount: 0,
-          totalCount: 0,
+          total: 0,
+          quantity: 0,
         }
       );
-      state.totalAmount = parseInt(totalAmount.toFixed(2));
-      state.totalCount = totalCount;
+      total = parseFloat(total.toFixed(2));
+      state.cartTotalQuantity = quantity;
+      state.cartTotalAmount = total;
     },
-    remove: (state, action) => {
-      state.items = state.items.filter((item) => item.id !== action.payload);
-    },
-    increase: (state, action) => {
-      state.items = state.items.map((item) => {
-        if (item.id === action.payload) {
-          return { ...item, amount: item.amount + 1 };
-        }
-        return item;
-      });
-    },
-    decrease: (state, action) => {
-      state.items = state.items
-        .map((item) => {
-          if (item.id === action.payload) {
-            return { ...item, amount: item.amount - 1 };
-          }
-          return item;
-        })
-        .filter((item) => item.amount !== 0);
-    },
-    clearCart: (state, action) => {
-      state.items = [];
-    },
-    getCartItems: (state) => {
-      state.items = data;
+    clearCart(state, action) {
+      state.cartItems = [];
+      Cookies.set('cart', JSON.stringify(state.cartItems));
     },
   },
 });
 
-export const {
-  getCartTotal,
-  remove,
-  increase,
-  decrease,
-  clearCart,
-  getCartItems,
-} = cartSlice.actions;
+export const { addToCart, decreaseCart, removeFromCart, getTotals, clearCart } =
+  CartSlice.actions;
 
-export default cartSlice.reducer;
+const { reducer } = CartSlice;
+export default reducer;

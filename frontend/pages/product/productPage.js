@@ -19,12 +19,11 @@ const productPage = () => {
 
     const { product, error, loading } = useSelector((state) => state.products);
 
-    const handleLifeTimeBuy = () =>{
-        if(lifeTimeBuy)
-        {
+    const handleLifeTimeBuy = () => {
+        if (lifeTimeBuy) {
             setLifeTimeBuy(false);
         }
-        else{
+        else {
             setLifeTimeBuy(true);
         }
     }
@@ -75,21 +74,52 @@ const productPage = () => {
                                 })
                             }</h1>
                             <hr></hr>
+                            <h1 className='font-bold mt-5'>Contact us</h1>
+                            <p>You can buy it through Contact us here!!!</p>
+                            <form className='bg-gray-900 p-2 text-white rounded-sm'>
+                                <label>Name</label>
+                                <div className="mb-3 pt-0">
+                                    <input type="text" placeholder="Placeholder" className="px-2 py-1 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full" />
+                                </div>
+                                <div className="mb-3 pt-0">
+                                <label>Email</label>
+                                    <input type="email" placeholder="Placeholder" className="px-2 py-1 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full" />
+                                </div>
+                                <div className="mb-3 pt-0">
+                                <label>Message</label>
+                                    <textarea type="text" placeholder="Placeholder" className="px-2 py-1 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full">
+                                        you can feel free share about this project or anything else
+                                    </textarea>
+                                </div>
+                                <a type="submit" class="bg-gray-800  active:bg-amber-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
+                                    >
+                                        Submit
+                                    </a>
+                            </form>
+
+
+
+
+
+
+
+
+
 
                         </div>
                         <div class="...">
                             <div className="rounded-sm shadow p-2">
-                            <p className="my-3">Status: {product && product.visibility ? 'in stock' : 'not in stock'}</p>
+                                <p className="my-3">Status: {product && product.visibility ? 'in stock' : 'not in stock'}</p>
                                 <hr></hr>
                                 <p className="my-3 font-bold text-lg">$ {product && product.price} {!lifeTimeBuy ? <span className='text-lime-900 ml-3'>Selected</span> : <input className='h-5 w-5 ml-4' type="checkbox" onChange={handleLifeTimeBuy}></input>}</p>
                                 <hr></hr>
                                 <p className="my-3 font-bold text-lg">$ {product && product.lifeTimePrice} {lifeTimeBuy ? <span className='text-lime-900 ml-3'>Selected</span> : <input className='h-5 w-5 ml-4' type="checkbox" onChange={handleLifeTimeBuy}></input>}</p>
                                 <hr className='mb-4'></hr>
-                               
+
                                 <Link
                                     href={{ pathname: "/cartPage", query: { pid: pid, ltb: lifeTimeBuy } }}
                                 >
-                                    <a class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
+                                    <a class="bg-amber-800 text-white active:bg-amber-900 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
                                     >
                                         add to cart
                                     </a>
