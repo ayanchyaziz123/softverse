@@ -13,13 +13,20 @@ const productPage = () => {
 
     const router = useRouter()
     const { pid } = router.query
-    const [quantity, setQuantity] = useState('');
+    const [quantity, setQuantity] = useState(1);
+    const [lifeTimeBuy, setLifeTimeBuy] = useState(false);
     const dispatch = useDispatch();
 
     const { product, error, loading } = useSelector((state) => state.products);
 
-    const addToCartHandler = () => {
-
+    const handleLifeTimeBuy = () =>{
+        if(lifeTimeBuy)
+        {
+            setLifeTimeBuy(false);
+        }
+        else{
+            setLifeTimeBuy(true);
+        }
     }
 
     useEffect(() => {
@@ -49,7 +56,10 @@ const productPage = () => {
                         <div class="col-span-2">
                             <h1 className="font-bold">Features</h1>
                             <hr></hr>
-                            <h1 className='font-bold text-lg my-3'>$ {product && product.price}</h1>
+                            <h1 className='font-bold text-lg my-3'>price: ${product && product.price}</h1>
+                            <hr></hr>
+                            <h1 className='text-lg my-3 font-bold'>Life time: ${product && product.lifeTimePrice}</h1>
+                            <p>You will get the prject totally. and will never be seen in this website</p>
                             <hr></hr>
                             <h1 className='text-lg my-3'>{product && product.name}</h1>
                             <hr></hr>
@@ -69,27 +79,15 @@ const productPage = () => {
                         </div>
                         <div class="...">
                             <div className="rounded-sm shadow p-2">
-                                <p className="my-3 font-bold text-lg">$ {product && product.price}</p>
+                            <p className="my-3">Status: {product && product.visibility ? 'in stock' : 'not in stock'}</p>
                                 <hr></hr>
-                                <p className="my-3">Status: in stock</p>
+                                <p className="my-3 font-bold text-lg">$ {product && product.price} {!lifeTimeBuy ? <span className='text-lime-900 ml-3'>Selected</span> : <input className='h-5 w-5 ml-4' type="checkbox" onChange={handleLifeTimeBuy}></input>}</p>
                                 <hr></hr>
-                                <p className='my-3'>
-                                    <label for="countries">Qtn : </label>
-                                    <select className='p-1' onChange={(e) => { setQuantity(e.target.value) }}>
-                                        {/* <option selected>1</option> */}
-                                        {
-
-                                            [...Array(product.quantity).keys()].map((x) => (
-                                                <option key={x + 1} value={x + 1}>
-                                                    {x + 1}
-                                                </option>
-                                            ))
-                                        }
-                                    </select>
-                                </p>
-                                <hr></hr>
+                                <p className="my-3 font-bold text-lg">$ {product && product.lifeTimePrice} {lifeTimeBuy ? <span className='text-lime-900 ml-3'>Selected</span> : <input className='h-5 w-5 ml-4' type="checkbox" onChange={handleLifeTimeBuy}></input>}</p>
+                                <hr className='mb-4'></hr>
+                               
                                 <Link
-                                    href={{ pathname: "/cartPage", query: { pid: product._id, qtn: product.quantity } }}
+                                    href={{ pathname: "/cartPage", query: { pid: pid, ltb: lifeTimeBuy } }}
                                 >
                                     <a class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
                                     >

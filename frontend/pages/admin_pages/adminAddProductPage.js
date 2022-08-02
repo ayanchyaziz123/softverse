@@ -3,7 +3,7 @@ import Sidebar from "../../admin_components/Sidebar";
 import React from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import {  createProduct } from "../../redux-toolkit-state/slices/ProductSlice";
+import { createProduct } from "../../redux-toolkit-state/slices/ProductSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -26,10 +26,22 @@ const adminAddProductPage = () => {
     const [languageAndTool, setLanguageAndTool] = useState('');
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
+    const [lifeTimePrice, setLifeTimePrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState('');
+    const [visibility, setVisibility] = useState(true);
+    const [offer, setOffer] = useState(0);
 
+
+    const handleVisibility = () => {
+        if (visibility) {
+            setVisibility(false);
+        }
+        else {
+            setVisibility(true);
+        }
+    }
 
     const handleProductSubmit = (e) => {
         e.preventDefault();
@@ -37,9 +49,12 @@ const adminAddProductPage = () => {
         formData.append('languageAndTool', languageAndTool);
         formData.append('name', name);
         formData.append('price', price);
+        formData.append('lifeTimePrice', lifeTimePrice);
         formData.append('quantity', quantity);
         formData.append('description', description);
         formData.append('image', image);
+        formData.append('visibility', visibility);
+        formData.append('offer', offer);
         dispatch(createProduct(formData));
     }
 
@@ -49,7 +64,7 @@ const adminAddProductPage = () => {
 
     return (
         <form onSubmit={handleProductSubmit}>
-            <div className="max-w-7xl mx-auto grid grid-cols-8 gap-10 mt-3 p-2">
+            <div className="max-w-7xl mx-auto grid grid-cols-8 gap-4 mt-3 p-2">
 
 
                 <div className="col-span-4">
@@ -100,14 +115,33 @@ const adminAddProductPage = () => {
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                     Price
                                 </label>
-                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder="10" onChange={(e) => setPrice(e.target.value)} />
+                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder="0" onChange={(e) => setPrice(e.target.value)} />
+                            </div>
+                            <div class="w-full md:w-1/2 px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                                    Life time price
+                                </label>
+                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder="0" onChange={(e) => setLifeTimePrice(e.target.value)} />
                             </div>
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                     Quantity
                                 </label>
-                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder="10" onChange={(e) => setQuantity(e.target.value)} />
+                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder="0" onChange={(e) => setQuantity(e.target.value)} />
                             </div>
+                            <div class="w-full md:w-1/2 px-3 mt-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                                    Offer
+                                </label>
+                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder="0" onChange={(e) => setOffer(e.target.value)} />
+                            </div>
+                            <div class="w-full md:w-1/2 px-3 mt-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                                    visibility
+                                </label>
+                                <input className="h-7 w-7" type="checkbox" checked={visibility ? true : false} onChange={handleVisibility} />
+                            </div>
+
                         </div>
 
 
@@ -138,8 +172,8 @@ const adminAddProductPage = () => {
 
             </div>
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                        Add product
-                    </button>
+                Add product
+            </button>
         </form>
     )
 }

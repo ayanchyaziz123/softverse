@@ -101,7 +101,7 @@ exports.deleteProduct = async (req, res, next) => {
 exports.createProduct = async (req, res, next) => {
     console.log("create product ", req.body, req.file);
     try {
-        const { languageAndTool, name, price, description, quantity } = req.body;
+        const { languageAndTool, name, price, description, quantity, lifeTimePrice, visibility, offer } = req.body;
 
         var val = languageAndTool.split(",");
         if(!languageAndTool) return res.status(400).json({
@@ -125,9 +125,12 @@ exports.createProduct = async (req, res, next) => {
             languageAndTool: val,
             name,
             price,
+            lifeTimePrice,
             description,
             quantity,
-            image: file
+            image: file,
+            visibility,
+            offer
         })
         await product.save();
         

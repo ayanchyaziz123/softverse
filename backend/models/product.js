@@ -15,7 +15,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-
+    lifeTimePrice:{
+        type: Number,
+        required: true
+    },
     quantity: {
         type: Number,
     },
@@ -25,6 +28,13 @@ const productSchema = new mongoose.Schema({
     }],
     image: {
         type: String
+    },
+    offer:{
+        type: Number
+    },
+    visibility:{
+        type: Boolean,
+        default: true
     }
 
 }, { timestamps: true });
