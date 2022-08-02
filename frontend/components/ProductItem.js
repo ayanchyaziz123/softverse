@@ -7,14 +7,14 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 const ProductItem = ({ product }) => {
   return (
     <>
-      <div class="max-w-sm rounded-sm border border-gray-200 shadow-md">
+      <div class="max-w-sm rounded-sm border border-gray-300">
 
 
         <Link
           href={{ pathname: "/product/productPage", query: { pid: product._id } }}
         >
            <a>
-          <img class="m-3  h-48 w-60 mx-auto rounded-sm hover:scale-125" src={`http://localhost:4000/${product.image}`} alt="" />
+          <img class="m-3  h-40 w-40 mx-auto rounded-sm hover:scale-150 transform-gpu"  src={`http://localhost:4000/${product.image}`} alt="" />
         </a>
         </Link>
         <div class="p-5">

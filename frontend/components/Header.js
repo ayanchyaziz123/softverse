@@ -37,7 +37,7 @@ export default function Header() {
     <Disclosure as="nav" className="bg-white-800 shadow">
       {({ open }) => (
         <>
-          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+          <div className="px-2 sm:px-6 lg:px-8">
             <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -81,7 +81,7 @@ export default function Header() {
                       </Link>
                     ))}
                     <form class="order-first mb-10 md:mb-0 md:order-last md:pr-8" action="">
-                      <input class="w-72 py-1 pl-3 pr-10 rounded-full border border-gray-800 focus:outline-1  mr-2 ml-2 " type="text" placeholder="Search.."
+                      <input class="w-72 py-1 pl-3 pr-10 rounded-sm border border-gray-800 focus:outline-1  mr-2 ml-2 " type="text" placeholder="Search.."
                         name="search" />
                     </form>
                   </div>

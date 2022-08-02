@@ -1,6 +1,17 @@
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 const CartPage = () =>{
+  const router = useRouter()
+  const { pid } = router.query;
+  const {qtn} = router.query;
+    
+  useEffect(() => {
+}, [pid, qtn])
+
+
     return(
         <>
+        <h1>{pid} {qtn}</h1>
        
   <div class="max-w-7xl mx-auto mt-10 ">
     <div class="flex shadow-md my-10">

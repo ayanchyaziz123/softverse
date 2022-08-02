@@ -23,12 +23,12 @@ const Home = () => {
 
 
   return (
-    <div class="max-w-7xl mx-auto">
+    <div>
 
       <Jumbotron categories={Categories} />
       <Category categories={Categories} />
       <h4 className='mt-5 mb-5 font-bold'>Recent Software</h4>
-      <div class="grid sm:grid-cols-4 gap-4  mt-5">
+      <div class="grid sm:grid-cols-5 gap-4  mt-5">
         {
           products && products.map((val, ind) => {
             return (

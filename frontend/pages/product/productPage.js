@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Loaders from '../../components/Loaders';
 import { getProductById } from '../../redux-toolkit-state/slices/ProductSlice';
+import ReactHtmlParser from 'react-html-parser';
+import Link from 'next/link';
+
 
 
 
@@ -14,7 +17,11 @@ const productPage = () => {
     const dispatch = useDispatch();
 
     const { product, error, loading } = useSelector((state) => state.products);
-    
+
+    const addToCartHandler = () => {
+
+    }
+
     useEffect(() => {
         dispatch(getProductById(pid))
     }, [pid])
@@ -36,8 +43,8 @@ const productPage = () => {
                     :
                     <div class="grid grid-cols-7 gap-6 mt-3 p-2">
                         <div class="col-span-4">
-                            <img style={{ maxHeight: '500px', minWidth: '400px' }} src={`http://localhost:4000/${product.image}`}></img>
-                            <p className='mt-5'>{product && product.description}</p>
+                            <img style={{ maxHeight: '500px', minWidth: '400px' }} src={`http://localhost:4000/${product && product.image}`}></img>
+                            <p className='mt-5'>{product && ReactHtmlParser(product.description)}</p>
                         </div>
                         <div class="col-span-2">
                             <h1 className="font-bold">Features</h1>
@@ -68,7 +75,7 @@ const productPage = () => {
                                 <hr></hr>
                                 <p className='my-3'>
                                     <label for="countries">Qtn : </label>
-                                    <select className='p-1' onChange={(e)=>{setQuantity(e.target.value)}}>
+                                    <select className='p-1' onChange={(e) => { setQuantity(e.target.value) }}>
                                         {/* <option selected>1</option> */}
                                         {
 
@@ -81,10 +88,14 @@ const productPage = () => {
                                     </select>
                                 </p>
                                 <hr></hr>
-                                <button class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
+                                <Link
+                                    href={{ pathname: "/cartPage", query: { pid: product._id, qtn: product.quantity } }}
                                 >
-                                    add to cart
-                                </button>
+                                    <a class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
+                                    >
+                                        add to cart
+                                    </a>
+                                </Link>
                             </div>
 
                         </div>

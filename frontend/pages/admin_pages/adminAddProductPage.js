@@ -51,11 +51,8 @@ const adminAddProductPage = () => {
         <form onSubmit={handleProductSubmit}>
             <div className="max-w-7xl mx-auto grid grid-cols-8 gap-10 mt-3 p-2">
 
-                <div className="col-span-2">
-                    <Sidebar />
-                </div>
 
-                <div className="col-span-3">
+                <div className="col-span-4">
 
 
                     {/* error is here */}
@@ -126,7 +123,7 @@ const adminAddProductPage = () => {
 
                     </div>
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-4">
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
@@ -136,13 +133,13 @@ const adminAddProductPage = () => {
 
                         </div>
                     </div>
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                        Add product
-                    </button>
                 </div>
 
 
             </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                        Add product
+                    </button>
         </form>
     )
 }

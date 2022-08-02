@@ -13,9 +13,13 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Header />
-        <Component {...pageProps} />
-        <Footer />
+        <div className='bg-gray-800'>
+          <div className='bg-white max-w-7xl mx-auto px-3'>
+            <Header />
+            <Component {...pageProps} />
+            <Footer />
+          </div>
+        </div>
       </PersistGate>
     </Provider>
   )
