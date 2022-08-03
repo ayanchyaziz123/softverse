@@ -49,8 +49,14 @@ const productPage = () => {
                     :
                     <div class="grid grid-cols-7 gap-6 mt-3 p-2">
                         <div class="col-span-4">
-                            <img style={{ maxHeight: '500px', minWidth: '400px' }} src={`http://localhost:4000/${product && product.image}`}></img>
+                            <div class="aspect-w-16 aspect-h-9">
+                                <iframe width="700" height="400" src={product && product.videoUrl} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <hr className='mt-5'></hr>
+            
                             <p className='mt-5'>{product && ReactHtmlParser(product.description)}</p>
+                            <hr className='mt-3'></hr>
+                            <img style={{ maxHeight: '200px', minWidth: '200px' }} src={`http://localhost:4000/${product && product.image}`}></img>
                         </div>
                         <div class="col-span-2">
                             <h1 className="font-bold">Features</h1>
@@ -74,27 +80,28 @@ const productPage = () => {
                                 })
                             }</h1>
                             <hr></hr>
-                            <h1 className='font-bold mt-5'>Contact us</h1>
-                            <p>You can buy it through Contact us here!!!</p>
+                            <p className='font-bold mt-5 bg-amber-800 text-white p-1 rounded-sm mb-2'>Buy Now</p>
+
                             <form className='bg-gray-900 p-2 text-white rounded-sm'>
+                                <p>You can buy it through Contact us here!!!</p>
                                 <label>Name</label>
                                 <div className="mb-3 pt-0">
                                     <input type="text" placeholder="Placeholder" className="px-2 py-1 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full" />
                                 </div>
                                 <div className="mb-3 pt-0">
-                                <label>Email</label>
+                                    <label>Email</label>
                                     <input type="email" placeholder="Placeholder" className="px-2 py-1 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full" />
                                 </div>
                                 <div className="mb-3 pt-0">
-                                <label>Message</label>
+                                    <label>Message</label>
                                     <textarea type="text" placeholder="Placeholder" className="px-2 py-1 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full">
                                         you can feel free share about this project or anything else
                                     </textarea>
                                 </div>
                                 <a type="submit" class="bg-gray-800  active:bg-amber-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
-                                    >
-                                        Submit
-                                    </a>
+                                >
+                                    Submit
+                                </a>
                             </form>
 
 

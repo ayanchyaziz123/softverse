@@ -37,6 +37,7 @@ const adminUpdateProductPage = () => {
     const [image, setImage] = useState('');
     const [visibility, setVisibility] = useState(true);
     const [offer, setOffer] = useState(0);
+    const [videoUrl, setVideoUrl] = useState('');
 
 
     const handleVisibility = () => {
@@ -60,7 +61,7 @@ const adminUpdateProductPage = () => {
         formData.append('image', image);
         formData.append('visibility', visibility);
         formData.append('offer', offer);
-        console.log("data ", offer, quantity);
+        formData.append('videoUrl', videoUrl);
         dispatch(updateProduct({formData, pid}));
     }
 
@@ -88,6 +89,7 @@ const adminUpdateProductPage = () => {
             setImage(product.image);
             setVisibility(product.visibility);
             setOffer(product.offer);
+            setVideoUrl(product.videoUrl);
         }
     }, [pid, product])
 
@@ -189,6 +191,12 @@ const adminUpdateProductPage = () => {
                 </div>
                 <div className="col-span-4">
                     <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full md:w-1/2 px-3 mt-3">
+                            <label class="block mt-1 uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                                Video Url
+                            </label>
+                            <input value={videoUrl} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" onChange={(e) => setVideoUrl(e.target.value)} />
+                        </div>
                         <div class="w-full px-3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                 Descriptions

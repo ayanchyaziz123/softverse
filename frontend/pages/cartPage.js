@@ -29,7 +29,7 @@ const CartPage = () => {
       dispatch(getProductById(pid))
     }
     else if (product && product._id == pid) {
-      const calPrice = (ltb ? product.lifeTimePrice : product.price).toFixed(2);
+      const calPrice = (ltb == true ? product.lifeTimePrice : product.price).toFixed(2);
       const claOffer = ((Number(product.offer ? product.offer : 0) * 100) / Number(calPrice)).toFixed(2);
       const cartData = {
         _id: product._id,
@@ -37,7 +37,7 @@ const CartPage = () => {
         price: calPrice,
         offer: claOffer,
         total: (calPrice - claOffer).toFixed(2),
-        lifeTimePrice: ltb,
+        lifeTimeBuy: ltb,
         image: product.image
       }
       dispatch(addToCart(cartData, pid))
@@ -84,7 +84,7 @@ const CartPage = () => {
                           </div>
                           <div class="flex flex-col justify-between ml-4 flex-grow">
                             <span class="font-bold text-sm">{item.name}</span>
-                            <span class="text-red-500 text-xs">Apple</span>
+                            {/* <span class="text-red-500 text-xs">Apple</span> */}
                             <button class="font-semibold hover:text-red-500 text-gray-500 text-xs" onClick={() => removeFromCartHandler(item._id)}>remove</button>
                           </div>
                         </div>
@@ -116,17 +116,19 @@ const CartPage = () => {
                   <option>Standard shipping - $10.00</option>
                 </select>
               </div>
-              <div class="py-10">
+              {/* <div class="py-10">
                 <label for="promo" class="font-semibold inline-block mb-3 text-sm uppercase">Promo Code</label>
                 <input type="text" id="promo" placeholder="Enter your code" class="p-2 text-sm w-full" />
               </div>
-              <button class="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">Apply</button>
+              <button class="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">Apply</button> */}
               <div class="border-t mt-8">
                 <div class="flex font-semibold justify-between py-6 text-sm uppercase">
                   <span>Total cost</span>
                   <span>$600</span>
                 </div>
-                <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout</button>
+                <Link href="/product/checkOutPage">
+                <a class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout</a>
+                </Link>
               </div>
             </div>
 

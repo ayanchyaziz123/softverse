@@ -101,11 +101,14 @@ exports.deleteProduct = async (req, res, next) => {
 exports.createProduct = async (req, res, next) => {
     console.log("create product ", req.body, req.file);
     try {
-        const { languageAndTool, name, price, description, quantity, lifeTimePrice, visibility, offer } = req.body;
+        const { languageAndTool, name, price, description, quantity, lifeTimePrice, visibility, offer, videoUrl } = req.body;
 
         var val = languageAndTool.split(",");
         if (!languageAndTool) return res.status(400).json({
             detail: "Did not give product language and tool"
+        })
+        if (!videoUrl) return res.status(400).json({
+            detail: "Did not give video url"
         })
         if (!name) return res.status(400).json({
             detail: "Did not give product name"
@@ -141,6 +144,7 @@ exports.createProduct = async (req, res, next) => {
             description,
             quantity,
             image: file,
+            videoUrl,
             visibility,
             offer
         })
