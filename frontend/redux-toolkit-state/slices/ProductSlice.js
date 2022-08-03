@@ -8,7 +8,7 @@ const initialState = {
     loading: false,
     products: [],
     product: null,
-    updateSuccess: null,
+    updateSuccess: false,
 };
 
 
@@ -17,6 +17,26 @@ export const createProduct = createAsyncThunk(
     async (product, { rejectWithValue }) => {
         try {
             const res = await ProductService.create_product(product);
+            return res.data;
+        } catch (err) {
+            if (!err.response) {
+                throw err
+            }
+            return rejectWithValue(err.response.data)
+        }
+    }
+)
+
+////// proble herere
+
+export const updateProduct = createAsyncThunk(
+    "product/updateProduct",
+    async (data, { rejectWithValue }) => {
+        console.log("data ", data);
+        const {pid, formData} = data;
+        console.log("product ::: ", formData, pid);
+        try {
+            const res = await ProductService.update_product(formData, pid);
             return res.data;
         } catch (err) {
             if (!err.response) {
@@ -169,6 +189,30 @@ const ProductSlice = createSlice({
         [getProductById.rejected]: (state, action) => {
             state.error = action.payload && action.payload.detail ? action.payload.detail : 'Network Error';
             state.success = null;
+            state.loading = false;
+        },
+
+        //end get product by id
+        //##########################################################################
+
+
+          //start get Product  by id
+        //##########################################################################
+        [updateProduct.pending]: (state, action) => {
+            state.updateSuccess = false;
+            state.loading = true;
+        },
+        [updateProduct.fulfilled]: (state, action) => {
+            state.success = action.payload.message;
+            state.products = action.payload.products;
+            state.updateSuccess = true;
+            state.error = null;
+            state.loading = false;
+        },
+        [updateProduct.rejected]: (state, action) => {
+            state.error = action.payload && action.payload.detail ? action.payload.detail : 'Network Error';
+            state.success = null;
+            state.updateSuccess = false;
             state.loading = false;
         },
 

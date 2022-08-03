@@ -40,9 +40,9 @@ const CartSlice = createSlice({
           );
 
           state.cartItems = nextCartItems;
-          console.log("cart item ", nextCartItems);
         }
         //error is here
+        console.log("cart item ", state.cartItems);
         alert("alert");
         Cookies.set('cart', JSON.stringify(state.cartItems));
         return state;

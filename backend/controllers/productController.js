@@ -176,6 +176,8 @@ exports.getProduct = async (req, res, next) => {
 }
 
 exports.updateProduct = async (req, res, next) => {
+    console.log(req.body, "hello ",req.params.id)
+    return; 
     try {
         const { name, price, countInStock, tax_percentage, description, catId, brand } = req.body;
         const pro = {

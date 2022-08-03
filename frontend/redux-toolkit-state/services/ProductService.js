@@ -5,6 +5,10 @@ const create_product = (product) => {
     return multi_http.post(`/product/createProduct`, product);
 };
 
+const update_product = (product, id) => {
+    return multi_http.put(`/product/updateProduct/${id}`, product);
+};
+
 const get_products = () =>{
     return http.get('/product');
 }
@@ -24,5 +28,6 @@ const ProductService = {
    get_products,
    delete_product,
    get_product_by_id,
+   update_product,
 };
 export default ProductService;

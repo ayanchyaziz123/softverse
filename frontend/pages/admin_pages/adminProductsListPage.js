@@ -105,6 +105,13 @@ const adminProductsListPage = () => {
                                                         </td>
                                                         <td>
                                                             <button value={product._id} onClick={handleDelete}>delete</button>
+                                                            <Link
+                                                                href={{ pathname: "/admin_pages/adminUpdateProductPage", query: { pid: product._id } }}
+                                                            >
+                                                                <a className="bg-gray-800 text-white">
+                                                                    update
+                                                                </a>
+                                                            </Link>
                                                         </td>
                                                     </tr>
                                                 </>)
