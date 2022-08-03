@@ -9,6 +9,7 @@ import Category from '../components/Category';
 import { retrieveAllProducts } from '../redux-toolkit-state/slices/ProductSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import Loaders from '../components/Loaders';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,9 @@ const Home = () => {
       <Jumbotron categories={Categories} />
       <Category categories={Categories} />
       <h4 className='mt-5 mb-5 font-bold'>Recent Software</h4>
-      <div class="grid sm:grid-cols-5 gap-4  mt-5">
+      {
+        loading ? <Loaders/> :
+        <div class="grid sm:grid-cols-5 gap-4  mt-5">
         {
           products && products.map((val, ind) => {
             return (
@@ -39,6 +42,7 @@ const Home = () => {
           })
         }
       </div>
+      }
     </div>
   )
 

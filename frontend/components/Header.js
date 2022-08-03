@@ -26,12 +26,16 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+
+
 export default function Header() {
   const router = useRouter();
   const userLogIn = useSelector((state) => state.users);
   const { userInfo } = userLogIn;
   const cart = useSelector((state) => state.cart);
-  const {  cartTotalAmount } = cart;
+  const { cartItems } = cart;
+
+
 
   return (
     <Disclosure as="nav" className="bg-white-800 shadow">
@@ -96,7 +100,7 @@ export default function Header() {
                   className="text-gray-800 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
 
                 >
-                  <span className='text-orange-800 font-bold' >{cartTotalAmount}</span>
+                  <span className='text-orange-800 font-bold' >{cartItems && cartItems.length}</span>
                   <ShoppingBagIcon className="h-7 w-7 " aria-hidden="true" />
                 </button>
 

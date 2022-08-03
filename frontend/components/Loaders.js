@@ -1,17 +1,12 @@
-import { Audio } from 'react-loader-spinner'
+import { ThreeDots } from 'react-loader-spinner'
 
 const Loaders = () => {
     return (
-            <Audio
-                style={{
-                    marginTop: '4400px'
-                }}
-                height="80"
-                width="80"
-                radius="9"
-                color='blck'
-                ariaLabel='three-dots-loading'
-            />
+        <>
+        <div className='grid justify-items-center' >
+        <ThreeDots color="#242429" height={80} width={80} />
+        </div>
+        </>
     )
 }
 

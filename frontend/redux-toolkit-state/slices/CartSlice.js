@@ -33,21 +33,12 @@ const CartSlice = createSlice({
     },
    
     removeFromCart(state, action) {
-      state.cartItems.map((cartItem) => {
-        if (cartItem._id === action.payload) {
-          const nextCartItems = state.cartItems.filter(
-            (item) => item._id !== cartItem._id
-          );
-
-          state.cartItems = nextCartItems;
-        }
-        //error is here
-        console.log("cart item ", state.cartItems);
-        alert("alert");
-        Cookies.set('cart', JSON.stringify(state.cartItems));
+        const data = state.cartItems.filter((cart) => cart._id !== action.payload);
+        Cookies.set('cart', JSON.stringify(data));
+        state.cartItems = data;
         return state;
-      });
     },
+
     getTotals(state, action) {
       let { total, quantity } = state.cartItems.reduce(
         (cartTotal, cartItem) => {
