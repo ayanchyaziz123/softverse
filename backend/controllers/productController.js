@@ -104,31 +104,31 @@ exports.createProduct = async (req, res, next) => {
         const { languageAndTool, name, price, description, quantity, lifeTimePrice, visibility, offer } = req.body;
 
         var val = languageAndTool.split(",");
-        if(!languageAndTool) return res.status(400).json({
+        if (!languageAndTool) return res.status(400).json({
             detail: "Did not give product language and tool"
         })
-        if(!name) return res.status(400).json({
+        if (!name) return res.status(400).json({
             detail: "Did not give product name"
         })
-        if(!price) return res.status(400).json({
+        if (!price) return res.status(400).json({
             detail: "Did not give product price"
         })
-        if(!description) return res.status(400).json({
+        if (!description) return res.status(400).json({
             detail: "Did not give product description"
         })
-        if(!lifeTimePrice) return res.status(400).json({
+        if (!lifeTimePrice) return res.status(400).json({
             detail: "Did not give product lifeTimePrice"
         })
-        if(!offer) return res.status(400).json({
+        if (!offer) return res.status(400).json({
             detail: "Did not give product offer"
         })
-        if(offer < 0) return res.status(400).json({
+        if (offer < 0) return res.status(400).json({
             detail: "Dont give negative value as offer"
         })
-        if(offer < 101) return res.status(400).json({
+        if (offer > 100) return res.status(400).json({
             detail: "Dont give offer percentage more than 100"
         })
-        if(!req.file)return res.status(400).json({
+        if (!req.file) return res.status(400).json({
             detail: "Did not give product image"
         })
         const file = req.file.filename;
@@ -145,7 +145,7 @@ exports.createProduct = async (req, res, next) => {
             offer
         })
         await product.save();
-        
+
         return res.status(200).json({
             product: product,
             message: "Successfully Product added"
@@ -176,20 +176,62 @@ exports.getProduct = async (req, res, next) => {
 }
 
 exports.updateProduct = async (req, res, next) => {
-    console.log(req.body, "hello ",req.params.id)
-    return; 
     try {
-        const { name, price, countInStock, tax_percentage, description, catId, brand } = req.body;
-        const pro = {
-            category: catId,
-            name: name,
-            description: description,
-            price: price,
-            countInStock: countInStock,
-            tax_percentage: tax_percentage,
-            brand: brand
+        const { languageAndTool, name, price, description, quantity, lifeTimePrice, visibility, offer } = req.body;
+
+        var val = languageAndTool.split(",");
+        if (!languageAndTool) return res.status(400).json({
+            detail: "Did not give product language and tool"
+        })
+        if (!name) return res.status(400).json({
+            detail: "Did not give product name"
+        })
+        if (!price) return res.status(400).json({
+            detail: "Did not give product price"
+        })
+        if (!description) return res.status(400).json({
+            detail: "Did not give product description"
+        })
+        if (!lifeTimePrice) return res.status(400).json({
+            detail: "Did not give product lifeTimePrice"
+        })
+        if (!offer) return res.status(400).json({
+            detail: "Did not give product offer"
+        })
+        if (offer < 0) return res.status(400).json({
+            detail: "Dont give negative value as offer"
+        })
+        if (offer > 100) return res.status(400).json({
+            detail: "Dont give offer percentage more than 100"
+        })
+        const file = req.file;
+        var pro;
+        if (file) {
+            pro = {
+                languageAndTool: val,
+                name,
+                price,
+                lifeTimePrice,
+                description,
+                quantity,
+                image: req.file.filename,
+                visibility,
+                offer
+            }
         }
-        const categories = await Category.find();
+        else {
+            pro = {
+                languageAndTool: val,
+                name,
+                price,
+                lifeTimePrice,
+                description,
+                quantity,
+                visibility,
+                offer
+            }
+        }
+
         var id = mongoose.Types.ObjectId(req.params.id)
         const filter = { _id: id }
         let updateProduct = await Product.findOneAndUpdate(filter, pro, {
@@ -197,8 +239,7 @@ exports.updateProduct = async (req, res, next) => {
         });
         return res.status(200).json({
             product: updateProduct,
-            categories: categories
-
+            message: 'Update successfully completed'
         })
 
     }

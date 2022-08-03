@@ -25,7 +25,7 @@ router.route('').get(getProducts);
 router.route('/createProduct').post(upload.single('image'), createProduct);
 router.route('/getProduct/:id').get(getProduct); // for admin
 router.route('/imageUpload').post(upload.single('image'), imageUpload);
-router.route('/updateProduct/:id').put(updateProduct);
+router.route('/updateProduct/:id').put(upload.single('image'), updateProduct);
 router.route('/deleteProduct/:id').delete(deleteProduct);
 router.route('/offerProduct').get(offerProduct);
 router.route('/:id/createReview').post(checkLogIn ,createReview);

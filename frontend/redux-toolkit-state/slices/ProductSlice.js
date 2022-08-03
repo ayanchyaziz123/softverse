@@ -32,9 +32,7 @@ export const createProduct = createAsyncThunk(
 export const updateProduct = createAsyncThunk(
     "product/updateProduct",
     async (data, { rejectWithValue }) => {
-        console.log("data ", data);
         const {pid, formData} = data;
-        console.log("product ::: ", formData, pid);
         try {
             const res = await ProductService.update_product(formData, pid);
             return res.data;
@@ -103,9 +101,9 @@ const ProductSlice = createSlice({
         clearStatus: (state, action) => {
             state.error = null,
             state.success = null,
-            state.loading = null
+            state.loading = null,
+            state.updateSuccess = null
         }
-
     },
     extraReducers: {
 
@@ -204,7 +202,7 @@ const ProductSlice = createSlice({
         },
         [updateProduct.fulfilled]: (state, action) => {
             state.success = action.payload.message;
-            state.products = action.payload.products;
+            state.product = action.payload.product;
             state.updateSuccess = true;
             state.error = null;
             state.loading = false;

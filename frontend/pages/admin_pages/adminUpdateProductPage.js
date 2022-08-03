@@ -3,9 +3,10 @@ import Sidebar from "../../admin_components/Sidebar";
 import React from 'react'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import 'react-multiple-select-dropdown-lite/dist/index.css'
-import { createProduct, getProductById, updateProduct } from "../../redux-toolkit-state/slices/ProductSlice";
+import { clearStatus, createProduct, getProductById, updateProduct } from "../../redux-toolkit-state/slices/ProductSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+
 
 
 
@@ -26,7 +27,7 @@ const adminUpdateProductPage = () => {
     const router = useRouter();
     const { pid } = router.query
     
-    const { error, loading, success, product } = useSelector(state => state.products);
+    const { error, loading, success, product, updateSuccess } = useSelector(state => state.products);
     const [languageAndTool, setLanguageAndTool] = useState('');
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
@@ -59,7 +60,8 @@ const adminUpdateProductPage = () => {
         formData.append('image', image);
         formData.append('visibility', visibility);
         formData.append('offer', offer);
-        dispatch(updateProduct(formData, pid));
+        console.log("data ", offer, quantity);
+        dispatch(updateProduct({formData, pid}));
     }
 
     const handleOnchange = val => {
@@ -67,7 +69,12 @@ const adminUpdateProductPage = () => {
     }
 
     useEffect(()=>{
-        if(!product || !product.name || product._id !== pid)
+        if(updateSuccess)
+        {
+            dispatch(clearStatus());
+            router.push('/admin_pages/adminProductsListPage');
+        }
+        else if(!product || !product.name || product._id !== pid)
         {
             dispatch(getProductById(pid));
         }
