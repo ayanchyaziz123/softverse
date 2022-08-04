@@ -126,8 +126,8 @@ const CartPage = () => {
                   <span>Total cost</span>
                   <span>$600</span>
                 </div>
-                <Link href="/product/checkOutPage">
-                <a class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout</a>
+                <Link href="/product/paymentPage">
+                <a class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full p-2">Proceed to pay</a>
                 </Link>
               </div>
             </div>

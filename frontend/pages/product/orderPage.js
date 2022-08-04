@@ -28,7 +28,7 @@ const products = [
     // More products...
 ]
 
-export default function checkOutPage() {
+export default function orderPage() {
     return (
         <div>
             {/* Background color split screen for large screens */}
